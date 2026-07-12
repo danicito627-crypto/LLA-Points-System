@@ -15,7 +15,7 @@ export default function Home() {
         <p className="text-[#CEB888] text-sm font-semibold tracking-widest uppercase mb-4">
           Larsen Leaders Academy
         </p>
-        <h1 className="text-6xl font-bold">
+        <h1 className="text-6xl font-bold" style={{ fontFamily: 'var(--font-oswald)' }}>
           LLA Point Tracker
         </h1>
         <p className="mt-4 max-w-xl text-xl text-gray-300">
@@ -27,7 +27,7 @@ export default function Home() {
       </section>
 
       <section className="bg-[#CEB888] py-10 text-center px-6">
-        <p className="text-2xl md:text-3xl font-bold text-black italic">
+        <p className="text-2xl md:text-3xl font-bold text-black italic" style={{ fontFamily: 'var(--font-oswald)' }}>
           "Mission first, people always."
         </p>
         <p className="mt-2 text-black font-medium">— Larsen Leaders Academy</p>
@@ -58,7 +58,7 @@ export default function Home() {
       </section>
 
       <section className="bg-black py-10 text-center px-6">
-        <p className="text-2xl md:text-3xl font-bold text-[#CEB888] italic">
+        <p className="text-2xl md:text-3xl font-bold text-[#CEB888] italic" style={{ fontFamily: 'var(--font-oswald)' }}>
           "You can count on me."
         </p>
         <p className="mt-2 text-gray-400 font-medium">— Larsen Leaders Academy</p>
