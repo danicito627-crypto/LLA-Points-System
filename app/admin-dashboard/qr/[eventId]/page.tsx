@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { supabase } from "../../../../lib/supabase";
+import AdminGuard from "../../../components/AdminGuard";
 
 export default function QRPage({ params }: { params: Promise<{ eventId: string }> }) {
   const [eventId, setEventId] = useState<number | null>(null);
@@ -46,14 +47,16 @@ export default function QRPage({ params }: { params: Promise<{ eventId: string }
   const checkInUrl = eventId ? `${eventId}:${token}` : "";
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
-      <h1 className="text-4xl font-bold text-black">{eventName}</h1>
-      <p className="mt-2 text-gray-600">Students scan this to check in</p>
-      <p className="mt-1 text-sm text-gray-400">Code refreshes every 30 seconds</p>
+    <AdminGuard>
+      <main className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+        <h1 className="text-4xl font-bold text-black">{eventName}</h1>
+        <p className="mt-2 text-gray-600">Students scan this to check in</p>
+        <p className="mt-1 text-sm text-gray-400">Code refreshes every 30 seconds</p>
 
-      <div className="mt-8 bg-white p-6 rounded-lg shadow">
-        {token && <QRCodeSVG value={checkInUrl} size={200} />}
-      </div>
-    </main>
+        <div className="mt-8 bg-white p-6 rounded-lg shadow">
+          {token && <QRCodeSVG value={checkInUrl} size={200} />}
+        </div>
+      </main>
+    </AdminGuard>
   );
 }
