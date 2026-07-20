@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 import { supabase } from "../../lib/supabase";
 
 export default async function EventsPage() {
-  const { data: events } = await supabase.from("events").select();
+  const { data: events, error } = await supabase.from("events").select();
 
   return (
     <main className="min-h-screen bg-gray-100">
@@ -10,6 +10,10 @@ export default async function EventsPage() {
       <div className="p-8">
         <h1 className="text-4xl font-bold text-black">Events</h1>
         <p className="mt-2 text-gray-600">Upcoming events will show up here.</p>
+
+        {error && (
+          <p className="mt-4 text-red-600">Error: {error.message}</p>
+        )}
 
         <div className="mt-8 flex flex-col gap-4 max-w-sm">
           {events?.map((event) => (

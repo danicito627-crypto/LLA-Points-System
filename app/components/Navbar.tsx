@@ -17,7 +17,6 @@ export default function Navbar() {
           <a href="/dashboard" className="hover:text-[#CEB888] transition-colors">Dashboard</a>
           <a href="/events" className="hover:text-[#CEB888] transition-colors">Events</a>
           <a href="/leaderboard" className="hover:text-[#CEB888] transition-colors">Leaderboard</a>
-          <a href="/rewards" className="hover:text-[#CEB888] transition-colors">Rewards</a>
         </div>
 
         <button
@@ -35,7 +34,6 @@ export default function Navbar() {
           <a href="/dashboard" className="hover:text-[#CEB888]" onClick={() => setOpen(false)}>Dashboard</a>
           <a href="/events" className="hover:text-[#CEB888]" onClick={() => setOpen(false)}>Events</a>
           <a href="/leaderboard" className="hover:text-[#CEB888]" onClick={() => setOpen(false)}>Leaderboard</a>
-          <a href="/rewards" className="hover:text-[#CEB888]" onClick={() => setOpen(false)}>Rewards</a>
         </div>
       )}
     </nav>

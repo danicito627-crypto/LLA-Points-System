@@ -1,5 +1,5 @@
 import Navbar from "./components/Navbar";
-import { QrCode, Award, Gift } from "lucide-react";
+import { QrCode, Award } from "lucide-react";
 
 export default function Home() {
   return (
@@ -39,7 +39,7 @@ export default function Home() {
         <h2 className="text-3xl font-bold text-black text-center mb-12" style={{ fontFamily: 'var(--font-oswald)' }}>
           How It Works
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 text-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 text-center max-w-2xl mx-auto">
           <div className="flex flex-col items-center">
             <div className="w-16 h-16 rounded-full bg-black flex items-center justify-center mb-5 shadow-md">
               <QrCode className="text-[#CEB888]" size={28} />
@@ -56,15 +56,6 @@ export default function Home() {
             <h3 className="text-lg font-semibold text-black">Earn Points</h3>
             <p className="mt-2 text-gray-600 max-w-xs">
               Points are automatically added to your account after check-in.
-            </p>
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="w-16 h-16 rounded-full bg-black flex items-center justify-center mb-5 shadow-md">
-              <Gift className="text-[#CEB888]" size={28} />
-            </div>
-            <h3 className="text-lg font-semibold text-black">Redeem Rewards</h3>
-            <p className="mt-2 text-gray-600 max-w-xs">
-              Trade your points for merch, experiences, and more.
             </p>
           </div>
         </div>
