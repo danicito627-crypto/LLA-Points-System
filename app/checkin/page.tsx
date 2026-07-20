@@ -5,7 +5,7 @@ import { Html5QrcodeScanner } from "html5-qrcode";
 import { supabase } from "../../lib/supabase";
 
 export default function CheckInPage() {
-  const [status, setStatus] = useState<"scanning" | "checking" | "success" | "invalid">("scanning");
+  const [status, setStatus] = useState<"scanning" | "checking" | "success" | "invalid" | "tooEarly" | "tooLate">("scanning");
   const [eventName, setEventName] = useState("");
   const [eventPoints, setEventPoints] = useState(0);
 
@@ -51,9 +51,9 @@ export default function CheckInPage() {
     }
 
     const now = new Date();
-    const expiresAt = new Date(tokenResult.data.expires_at);
+    const tokenExpiresAt = new Date(tokenResult.data.expires_at);
 
-    if (now > expiresAt) {
+    if (now > tokenExpiresAt) {
       setStatus("invalid");
       return;
     }
@@ -65,13 +65,33 @@ export default function CheckInPage() {
       return;
     }
 
+    const event = eventResult.data;
+
+    if (event.starts_at) {
+      const startsAt = new Date(event.starts_at);
+      if (now < startsAt) {
+        setEventName(event.name);
+        setStatus("tooEarly");
+        return;
+      }
+    }
+
+    if (event.ends_at) {
+      const endsAt = new Date(event.ends_at);
+      if (now > endsAt) {
+        setEventName(event.name);
+        setStatus("tooLate");
+        return;
+      }
+    }
+
     await supabase.from("check_ins").insert({
       student_id: 1,
       event_id: eventId,
     });
 
-    setEventName(eventResult.data.name);
-    setEventPoints(eventResult.data.points);
+    setEventName(event.name);
+    setEventPoints(event.points);
     setStatus("success");
   }
 
@@ -86,11 +106,24 @@ export default function CheckInPage() {
       {status === "success" && (
         <p className="text-2xl font-bold text-green-600 text-center">
           Checked in to {eventName}! +{eventPoints} points
-        </p>)}
+        </p>
+      )}
 
       {status === "invalid" && (
         <p className="text-xl font-bold text-red-600 text-center">
           This QR code is invalid or expired. Please scan the current code at the event.
+        </p>
+      )}
+
+      {status === "tooEarly" && (
+        <p className="text-xl font-bold text-orange-600 text-center">
+          {eventName} hasn&apos;t started yet. Check-in isn&apos;t open until the event begins.
+        </p>
+      )}
+
+      {status === "tooLate" && (
+        <p className="text-xl font-bold text-orange-600 text-center">
+          {eventName} has already ended. Check-in is now closed.
         </p>
       )}
     </main>
